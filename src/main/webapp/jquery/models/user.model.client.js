@@ -38,5 +38,5 @@ function User(username, password, firstName, lastName) {
     function getLastName() {
         return this.lastName;
     }
-    
+
 }
