@@ -10,3 +10,19 @@ CREATE TABLE `user` (
   `date_of_birth` DATETIME DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+INSERT INTO `heroku_14707c4295f918c`.`user`
+(`first_name`,
+`last_name`,
+`password`,
+`username`,
+`role`,
+`phone`,
+`email`)
+VALUES
+('Bob',
+'Vance',
+'excuseme',
+'vbob',
+'user',
+'6177773434',
+'vbob@vrefrigeration.com');

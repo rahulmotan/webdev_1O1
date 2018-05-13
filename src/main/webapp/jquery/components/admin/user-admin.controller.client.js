@@ -6,8 +6,9 @@
     function main(){
         tbody = $('tbody');
         template = $('.wbdv-template');
+        $('.wbdv-create').css('cursor', 'pointer');
         $('.wbdv-create').click(createUser);
-        var promise = fetch("https/localhost:8080/api/user");
+        var promise = fetch("http://localhost:8080/api/user");
         promise.then(function (response) {
             return response.json();
         }).then(renderUsers);
@@ -17,26 +18,31 @@
         for (var i=0;i<users.length;i++){
             var user = users[i];
             var clone = template.clone();
-            clone.find('.username')
+            clone.find('.wbdv-username')
                 .html(user.username);
+            clone.find('.wbdv-first-name').html(user.firstName);
+            clone.find('.wbdv-last-name').html(user.lastName);
+            clone.find('.wbdv-role').html(user.role);
             tbody.append(clone);
         }
     }
     function createUser() {
-        const form = $('.wbdv-form');
+        var form = $('.wbdv-form');
         username = form.find('#usernameFld').val();
         password = form.find('#passwordFld').val();
         firstName = form.find('#firstNameFld').val();
         lastName = form.find('#lastNameFld').val();
+        role = form.find('#roleFld').val();
 
         var user = {
             username : username,
             password : password,
             firstName : firstName,
-            lastName : lastName
+            lastName : lastName,
+            role: role
         };
 
-        fetch("https/localhost:8080/api/user", {
+        fetch("http://localhost:8080/api/user", {
             method: 'post',
             body: JSON.stringify(user),
             headers:{
