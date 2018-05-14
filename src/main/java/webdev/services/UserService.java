@@ -3,6 +3,8 @@ package webdev.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import webdev.models.User;
@@ -33,7 +36,7 @@ public class UserService {
 	@GetMapping("/api/user/{userId}")
 	public User findUserById(@PathVariable("userId") int userId) {
 		Optional<User> optional = userRepository.findById(userId);
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			return optional.get();
 		}
 		return null;
@@ -54,10 +57,32 @@ public class UserService {
 		}
 		return null;
 	}
+
+	@GetMapping("/api/user?username={username}")
+	public User findUserByUsername(@RequestParam("username") String username) {
+		Optional<User> optional =  userRepository.findUserByUsername(username);
+		if(optional.isPresent())
+			return optional.get();
+		else
+			return null;
+	}
 	
+	@PostMapping("/api/register")
+	public User register(@RequestBody User user, HttpSession httpSession) {
+		Optional<User> optional = userRepository.findUserByUsername(user.getUsername());
+		if(!optional.isPresent()) {
+			User freshUser = new User();
+			freshUser.setUsername(user.getUsername());
+			freshUser.setPassword(user.getPassword());
+			User persistedUser = this.createUser(freshUser);
+			return persistedUser;
+		}
+		return null;
+	}
+
 	@DeleteMapping("/api/user/{userId}")
 	public void deleteUser(@PathVariable("userId") int id) {
-		if(id >=0 )
+		if (id >= 0)
 			userRepository.deleteById(id);
 	}
 

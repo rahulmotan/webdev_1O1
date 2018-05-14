@@ -7,7 +7,7 @@ function UserServiceClient() {
     this.url = 'http://localhost:8080/api/user';
     var self = this;
 
-    function createUser(user, callback) {
+    function createUser(user) {
         return fetch(self.url, {
             method: 'post',
             body: JSON.stringify(user),
@@ -17,38 +17,55 @@ function UserServiceClient() {
         })
     }
 
-    function findAllUsers(callback) {
-       return fetch(self.url)
+    function findAllUsers() {
+        return fetch(self.url)
             .then(function (response) {
                 return response.json();
             })
     }
 
-    function findUserById(userId, callback) {
+    function findUserById(userId) {
         return fetch(self.url + "/" + userId)
             .then(function (response) {
                 return response.json();
             });
     }
 
-    function updateUser(userId, user, callback) {
+    function updateUser(userId, user) {
         return fetch(self.url + "/" + userId, {
             method: 'put',
             body: JSON.stringify(user),
-            headers:{
-                'content-type': 'application/json',
+            headers: {
+                'content-type': 'application/json'
             }
         }).then(function (response) {
             return response.json();
         })
     }
 
-    function deleteUser(userId, callback) {
+    function deleteUser(userId) {
         return fetch(self.url + "/" + userId, {
-            method:'delete',
+            method: 'delete',
         }).then(function (response) {
             return response
         })
     }
+}
 
+function UserService() {
+    this.register = register;
+    this.url = 'http://localhost:8080/api/register';
+    var self = this;
+
+    function register(user) {
+        return fetch(self.url, {
+            method: 'post',
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(function (response) {
+            return response.json();
+        })
+    }
 }
