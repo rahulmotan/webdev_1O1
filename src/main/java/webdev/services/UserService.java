@@ -44,7 +44,7 @@ public class UserService {
 
 	@PutMapping("/api/user/{userId}")
 	public User updateUser(@PathVariable("userId") int userId, @RequestBody User user) {
-		Optional<User> optional = userRepository.findById(user.getId());
+		Optional<User> optional = userRepository.findById(userId);
 		if (optional.isPresent()) {
 			User oldUser = optional.get();
 			oldUser.setUsername(user.getUsername());
@@ -53,6 +53,7 @@ public class UserService {
 			oldUser.setPassword(user.getPassword());
 			oldUser.setRole(user.getRole());
 			oldUser.setEmail(user.getEmail());
+			oldUser.setDateOfBirth(user.getDateOfBirth());
 			return userRepository.save(oldUser);
 		}
 		return null;
@@ -94,5 +95,14 @@ public class UserService {
 		}
 		return null;
 	}
-
+	
+	@PutMapping("/api/profile")
+	public User updateProfile(@RequestBody User user) {
+		Optional<User> optional = userRepository.findUserByUsername(user.getUsername());
+		if(optional.isPresent()) {
+			User updatedUser = optional.get();
+			return this.updateUser(updatedUser.getId(), user);
+		}
+		return null;
+	}
 }

@@ -1,9 +1,16 @@
 package webdev.models;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class User {
@@ -17,11 +24,14 @@ public class User {
 	private String phone;
 	private String email;
 	private String role;
-	private String dateOfBirth;
-	
+	@DateTimeFormat
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateOfBirth;
+
 	public User() {
 		super();
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -86,11 +96,11 @@ public class User {
 		this.role = role;
 	}
 
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
