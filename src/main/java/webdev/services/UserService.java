@@ -85,5 +85,14 @@ public class UserService {
 		if (id >= 0)
 			userRepository.deleteById(id);
 	}
+	
+	@PostMapping("/api/login")
+	public User login(@RequestBody User user) {
+		Optional<User> optional = userRepository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
 
 }

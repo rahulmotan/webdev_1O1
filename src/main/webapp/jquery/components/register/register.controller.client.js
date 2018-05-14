@@ -1,7 +1,7 @@
 (function () {
     var $usernameFld, $passwordFld, $verifyPasswordFld;
     var $registerBtn;
-    var userService = new UserService();
+    var userService = new UserServiceClient();
     var form;
     $(main);
 
