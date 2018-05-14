@@ -11,6 +11,9 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 @Entity
 public class User {
 	@Id
@@ -23,6 +26,7 @@ public class User {
 	private String phone;
 	private String email;
 	private String role;
+	@JsonFormat(pattern="MM/dd/yyyy", timezone="GMT", shape=Shape.STRING)
 	@DateTimeFormat
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateOfBirth;

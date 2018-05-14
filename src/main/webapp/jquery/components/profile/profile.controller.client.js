@@ -18,7 +18,7 @@
             }
         }
         populateForm(userId[1],$form);
-        $updateBtn.click(updateProfile(userId));
+        $updateBtn.click(updateProfile);
         $logoutBtn.click(logout);
     }
 
