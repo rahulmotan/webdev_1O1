@@ -25,15 +25,26 @@ function UserServiceClient() {
     }
 
     function findUserById(userId, callback) {
-
+        return fetch(self.url + "/" + userId)
+            .then(function (response) {
+                return response.json();
+            });
     }
 
     function updateUser(userId, user, callback) {
-
+        return fetch(self.url + "/" + userId, {
+            method: 'put',
+            body: JSON.stringify(user),
+            headers:{
+                'content-type': 'application/json',
+            }
+        }).then(function (response) {
+            return response.json();
+        })
     }
 
     function deleteUser(userId, callback) {
-        fetch(self.url + "/" + userId, {
+        return fetch(self.url + "/" + userId, {
             method:'delete',
         }).then(function (response) {
             return response

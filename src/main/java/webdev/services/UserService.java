@@ -31,28 +31,34 @@ public class UserService {
 	}
 
 	@GetMapping("/api/user/{userId}")
-	public User findUserById(Integer userId) {
+	public User findUserById(@PathVariable("userId") int userId) {
+		Optional<User> optional = userRepository.findById(userId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
 		return null;
 	}
 
 	@PutMapping("/api/user/{userId}")
-	public User updateUser(@RequestBody User user) {
+	public User updateUser(@PathVariable("userId") int userId, @RequestBody User user) {
 		Optional<User> optional = userRepository.findById(user.getId());
 		if (optional.isPresent()) {
 			User oldUser = optional.get();
+			oldUser.setUsername(user.getUsername());
 			oldUser.setFirstName(user.getFirstName());
 			oldUser.setLastName(user.getLastName());
 			oldUser.setPassword(user.getPassword());
-			oldUser.setRole(user.getEmail());
+			oldUser.setRole(user.getRole());
 			oldUser.setEmail(user.getEmail());
-			return oldUser;
+			return userRepository.save(oldUser);
 		}
 		return null;
 	}
 	
 	@DeleteMapping("/api/user/{userId}")
 	public void deleteUser(@PathVariable("userId") int id) {
-		userRepository.deleteById(id);
+		if(id >=0 )
+			userRepository.deleteById(id);
 	}
 
 }
