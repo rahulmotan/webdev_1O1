@@ -50,7 +50,9 @@ public class UserService {
 			oldUser.setUsername(user.getUsername());
 			oldUser.setFirstName(user.getFirstName());
 			oldUser.setLastName(user.getLastName());
-			oldUser.setPassword(user.getPassword());
+			if (user.getPassword() != null) {
+				oldUser.setPassword(user.getPassword());
+			}
 			oldUser.setRole(user.getRole());
 			oldUser.setEmail(user.getEmail());
 			oldUser.setDateOfBirth(user.getDateOfBirth());
@@ -61,17 +63,17 @@ public class UserService {
 
 	@GetMapping("/api/user?username={username}")
 	public User findUserByUsername(@RequestParam("username") String username) {
-		Optional<User> optional =  userRepository.findUserByUsername(username);
-		if(optional.isPresent())
+		Optional<User> optional = userRepository.findUserByUsername(username);
+		if (optional.isPresent())
 			return optional.get();
 		else
 			return null;
 	}
-	
+
 	@PostMapping("/api/register")
 	public User register(@RequestBody User user, HttpSession httpSession) {
 		Optional<User> optional = userRepository.findUserByUsername(user.getUsername());
-		if(!optional.isPresent()) {
+		if (!optional.isPresent()) {
 			User freshUser = new User();
 			freshUser.setUsername(user.getUsername());
 			freshUser.setPassword(user.getPassword());
@@ -86,21 +88,23 @@ public class UserService {
 		if (id >= 0)
 			userRepository.deleteById(id);
 	}
-	
+
 	@PostMapping("/api/login")
 	public User login(@RequestBody User user) {
 		Optional<User> optional = userRepository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			return optional.get();
 		}
 		return null;
 	}
-	
+
 	@PutMapping("/api/profile")
 	public User updateProfile(@RequestBody User user) {
-		Optional<User> optional = userRepository.findUserByUsername(user.getUsername());
-		if(optional.isPresent()) {
-			User updatedUser = optional.get();
+		Optional<User> userById = userRepository.findById(user.getId());
+		// Optional<User> optional =
+		// userRepository.findUserByUsername(user.getUsername());
+		if (userById.isPresent()) {
+			User updatedUser = userById.get();
 			return this.updateUser(updatedUser.getId(), user);
 		}
 		return null;
