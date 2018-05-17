@@ -1,18 +1,12 @@
 package webdev.models;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 @Entity
 public class User {
@@ -26,9 +20,6 @@ public class User {
 	private String phone;
 	private String email;
 	private String role;
-	@JsonFormat(pattern="MM/dd/yyyy", timezone="GMT", shape=Shape.STRING)
-	@DateTimeFormat
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateOfBirth;
 
 	public User() {

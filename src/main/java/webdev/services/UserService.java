@@ -1,8 +1,10 @@
 package webdev.services;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,10 +66,13 @@ public class UserService {
 	@GetMapping("/api/user?username={username}")
 	public User findUserByUsername(@RequestParam("username") String username) {
 		Optional<User> optional = userRepository.findUserByUsername(username);
-		if (optional.isPresent())
+		if (optional.isPresent()) {
 			return optional.get();
-		else
-			return null;
+		} else {
+			User user = new User();
+			user.setUsername("");
+			return user;
+		}
 	}
 
 	@PostMapping("/api/register")
@@ -79,8 +84,10 @@ public class UserService {
 			freshUser.setPassword(user.getPassword());
 			User persistedUser = this.createUser(freshUser);
 			return persistedUser;
+		}else {
+			User dummy = new User();
+			return dummy;
 		}
-		return null;
 	}
 
 	@DeleteMapping("/api/user/{userId}")
@@ -90,10 +97,16 @@ public class UserService {
 	}
 
 	@PostMapping("/api/login")
-	public User login(@RequestBody User user) {
+	public User login(@RequestBody User user, HttpServletResponse response) {
 		Optional<User> optional = userRepository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword());
 		if (optional.isPresent()) {
 			return optional.get();
+		} else {
+			try {
+				response.sendError(404, "User not found");
+			} catch (IOException io) {
+				System.out.println("Class:" + this.getClass() + " Method: login");
+			}
 		}
 		return null;
 	}
@@ -101,11 +114,14 @@ public class UserService {
 	@PutMapping("/api/profile")
 	public User updateProfile(@RequestBody User user) {
 		Optional<User> userById = userRepository.findById(user.getId());
-		// Optional<User> optional =
-		// userRepository.findUserByUsername(user.getUsername());
 		if (userById.isPresent()) {
 			User updatedUser = userById.get();
-			return this.updateUser(updatedUser.getId(), user);
+			updatedUser.setUsername(user.getUsername());
+			updatedUser.setPhone(user.getPhone());
+			updatedUser.setRole(user.getRole());
+			updatedUser.setEmail(user.getEmail());
+			updatedUser.setDateOfBirth(user.getDateOfBirth());
+			return userRepository.save(updatedUser);
 		}
 		return null;
 	}

@@ -4,11 +4,13 @@
     var userService = new UserServiceClient();
     var $form;
     $(main);
+
     function main() {
         $form = $('form');
         $loginBtn = $('.btn-login');
         $loginBtn.click(login);
     }
+
     function login(event) {
         var redirect = undefined;
         var queryString = "?id=";
@@ -20,12 +22,23 @@
         var username = $usernameFld.val();
         var password = $passwordFld.val();
         var user = new User();
+        username = username.trim();
         user.setUsername(username);
         user.setPassword(password);
-        userService.login(user).then(function (user) {
-            alert("Welcome " + user.username);
-            window.location.href = redirect+queryString+user.id;
-        });
+        if (username !== undefined && username.length > 0) {
+            userService.login(user).then(function (user) {
+                //alert("Welcome " + user.username);
+                if (user != undefined) {
+                    window.location.href = redirect + queryString + user.id;
+                } else {
+                    $('#notificationModal').modal('show');
+                }
+
+            });
+        } else {
+            $('#notificationModal').modal('show');
+        }
+
 
     }
 })();

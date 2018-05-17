@@ -2,6 +2,7 @@ function UserServiceClient() {
     this.createUser = createUser;
     this.findAllUsers = findAllUsers;
     this.findUserById = findUserById;
+    this.findUserByUsername = findUserByUsername;
     this.deleteUser = deleteUser;
     this.updateUser = updateUser;
     this.register = register;
@@ -27,15 +28,25 @@ function UserServiceClient() {
     function findAllUsers() {
         return fetch(self.url)
             .then(function (response) {
-                return response.json();
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    alert("An error occurred. Please see console.");
+                    console.log(response);
+                }
             })
     }
 
     function findUserById(userId) {
-        return fetch(self.url + "/" + userId)
-            .then(function (response) {
-                return response.json();
-            });
+        if (userId != undefined) {
+            return fetch(self.url + "/" + userId)
+                .then(function (response) {
+                    return response.json();
+                });
+        } else {
+            alert("An error occurred. Please see console.");
+            console.log(response);
+        }
     }
 
     function updateUser(userId, user) {
@@ -46,7 +57,12 @@ function UserServiceClient() {
                 'content-type': 'application/json'
             }
         }).then(function (response) {
-            return response.json();
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert("An error occurred. Please see console.");
+                console.log(response);
+            }
         })
     }
 
@@ -66,8 +82,13 @@ function UserServiceClient() {
                 'content-type': 'application/json'
             }
         }).then(function (response) {
-            return response.json();
-        })
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert("An error occurred. Please see console.");
+                console.log(response);
+            }
+        });
     }
 
     function login(user) {
@@ -78,18 +99,41 @@ function UserServiceClient() {
                 'content-type': 'application/json'
             }
         }).then(function (response) {
-            return response.json();
+            if (response.ok) {
+                return response.json();
+            } else {
+                return undefined;
+            }
         });
     }
+
     function updateProfile(user) {
         return fetch(self.updateProfileUrl, {
             method: 'put',
             body: JSON.stringify(user),
-            headers:{
-                'content-type':'application/json'
+            headers: {
+                'content-type': 'application/json'
             }
         }).then(function (response) {
-            return response.json();
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert("An error occurred. Please see console.");
+                console.log(response);
+            }
+
         });
+    }
+
+    function findUserByUsername(username) {
+        return fetch(self.url+"?username="+username)
+            .then(function (response) {
+                if(response.ok){
+                    return response.json();
+                }else{
+                    alert("An error occurred. Please see console.");
+                    console.log(response);
+                }
+            });
     }
 }

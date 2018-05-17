@@ -11,12 +11,13 @@
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="../../services/user.service.client.js"></script>
     <script src="user-admin.controller.client.js"></script>
+    <link rel="stylesheet" href="user-admin.style.client.css">
 </head>
 <body>
 <div class="container">
     <div class="row"><h1>User Admin</h1></div>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Username</th>
@@ -46,7 +47,7 @@
 				</span></td>
             <td><input id="userIdFld" type="hidden" class="form-control" style="display:none;"/></td>
         </tr>
-        <tbody class="wbdv-tbody table-striped table-dark">
+        <tbody class="wbdv-tbody">
         <tr class="wbdv-template wbdv-user wbdv-hidden">
             <td class="wbdv-username">ada</td>
             <td>&nbsp;</td>
