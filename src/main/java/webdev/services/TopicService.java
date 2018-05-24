@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import webdev.models.Lesson;
 import webdev.models.Topic;
 import webdev.repositories.LessonRepository;
-import webdev.repositories.ModuleRepository;
 import webdev.repositories.TopicRepository;
 
 @RestController
@@ -25,25 +24,22 @@ public class TopicService {
 	@Autowired
 	TopicRepository topicRepository;
 	@Autowired
-	ModuleRepository moduleRepository;
-	@Autowired
 	LessonRepository lessonRepository;
 
-	@PostMapping("/api/module/{moduleId}/lesson/{lessonId}")
-	public Topic createTopic(@RequestBody Topic topic, @PathVariable("moduleId") int moduleId,
-			@PathVariable("lessonId") int lessonId) {
+	@PostMapping("/api/lesson/{lessonId}/topic")
+	public Topic createTopic(@RequestBody Topic topic, @PathVariable("lessonId") int lessonId) {
 		Optional<Lesson> dataLesson = lessonRepository.findById(lessonId);
 		if (dataLesson.isPresent()) {
 			Lesson dbLesson = dataLesson.get();
 			Topic dbTopic = new Topic();
 			dbTopic.setTitle(topic.getTitle());
 			dbTopic.setLesson(dbLesson);
-			topicRepository.save(dbTopic);
+			return topicRepository.save(dbTopic);
 		}
 		return null;
 	}
 
-	@GetMapping("/api/module/{moduleId}/lesson/{lessonId}")
+	@GetMapping("/api/lesson/{lessonId}/topic")
 	public List<Topic> findAllTopicsForLesson(@PathVariable("lessonId") int lessonId) {
 		Optional<Lesson> lessonData = lessonRepository.findById(lessonId);
 		if (lessonData.isPresent()) {

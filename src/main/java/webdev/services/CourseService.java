@@ -45,4 +45,9 @@ public class CourseService {
 		}
 		return null;
 	}
+
+	@GetMapping("api/course/sorted")
+	public List<Course> findAllCoursesSorted() {
+		return courseRepository.findAllCoursesSorted();
+	}
 }

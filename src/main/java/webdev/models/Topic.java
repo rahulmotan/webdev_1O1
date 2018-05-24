@@ -13,10 +13,13 @@ public class Topic {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	private String title;
+	
 	@ManyToOne
 	@JsonIgnore
 	private Lesson lesson;
+	
 	public int getId() {
 		return id;
 	}
