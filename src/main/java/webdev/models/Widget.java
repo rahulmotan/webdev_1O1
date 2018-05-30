@@ -14,9 +14,11 @@ public class Widget {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	private enum ListType {
 		ordered, unordered
 	}
+
 	private String name;
 	private Integer orderNumber;
 	private String text;
@@ -29,6 +31,7 @@ public class Widget {
 	private String src;
 	private String listItems;
 	private ListType listType;
+	private String widgetType;
 
 	@ManyToOne
 	@JsonIgnore
@@ -49,8 +52,6 @@ public class Widget {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	
 
 	public String getText() {
 		return text;
@@ -100,14 +101,6 @@ public class Widget {
 		this.topic = topic;
 	}
 
-	public int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
-	}
-
 	public String getHref() {
 		return href;
 	}
@@ -140,12 +133,28 @@ public class Widget {
 		this.listType = listType;
 	}
 
-	public Integer getOrder_num() {
+	public Integer getOrderNumber() {
 		return orderNumber;
 	}
 
-	public void setOrder_num(int order_num) {
-		this.orderNumber = order_num;
+	public void setOrderNumber(Integer orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
+	public String getWidgetType() {
+		return widgetType;
+	}
+
+	public void setWidgetType(String widgetType) {
+		this.widgetType = widgetType;
+	}
+
+	public void setSize(Integer size) {
+		this.size = size;
+	}
+
+	public Integer getSize() {
+		return size;
 	}
 
 }

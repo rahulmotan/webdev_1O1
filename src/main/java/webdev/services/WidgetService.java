@@ -34,11 +34,20 @@ public class WidgetService {
 		return (List<Widget>) widgetRepository.findAll();
 	}
 
-	@PostMapping("/api/widget/save")
-	public void saveAllWidgets(@RequestBody List<Widget> widgets) {
-		widgetRepository.deleteAll();
-		for (Widget w : widgets) {
-			widgetRepository.save(w);
+	@PostMapping("/api/widget/save/{topicId}")
+	public List<Widget> saveAllWidgets(@RequestBody List<Widget> widgets, @PathVariable("topicId") int topicId) {
+		Optional<Topic> topicData = topicRepository.findById(topicId);
+		List<Widget> response = new ArrayList<Widget>();
+		if (topicData.isPresent()) {
+			List<Widget> widList = topicData.get().getWidgets();
+			widgetRepository.deleteAll(widList);
+			for (Widget w : widgets) {
+				w.setTopic(topicData.get());
+				response.add(widgetRepository.save(w));
+			}
+			return response;
+		} else {
+			return new ArrayList<Widget>();
 		}
 	}
 
@@ -56,8 +65,8 @@ public class WidgetService {
 	public List<Widget> findAllWidgetsForTopic(@PathVariable("topicId") int topicId) {
 		Optional<Topic> topicData = topicRepository.findById(topicId);
 		if (topicData.isPresent()) {
-			List<Widget> widgetList = topicData.get().getWidgets();
-			return widgetList;
+			Topic topic = topicData.get();
+			return widgetRepository.findAllWidgetsByTopicSorted(topic);
 		} else {
 			return new ArrayList<Widget>();
 		}
@@ -91,13 +100,14 @@ public class WidgetService {
 			dbWidget.setListItems(widget.getListItems());
 			dbWidget.setName(widget.getName());
 			dbWidget.setListType(widget.getListType());
-			dbWidget.setOrder_num(widget.getOrder_num());
+			dbWidget.setOrderNumber(widget.getOrderNumber());
 			dbWidget.setSize(widget.getSize());
 			dbWidget.setSrc(widget.getSrc());
 			dbWidget.setStyle(widget.getStyle());
 			dbWidget.setText(widget.getText());
 			dbWidget.setWidth(widget.getWidth());
 			dbWidget.setTopic(widget.getTopic());
+			dbWidget.setWidgetType(widget.getWidgetType());
 			return widgetRepository.save(dbWidget);
 		} else {
 			return new Widget();
