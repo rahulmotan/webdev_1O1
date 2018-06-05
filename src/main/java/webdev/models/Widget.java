@@ -4,11 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Widget {
 
 	@Id
@@ -32,6 +35,8 @@ public class Widget {
 	private String listItems;
 	private ListType listType;
 	private String widgetType;
+	private String description;
+	private Integer points;
 
 	@ManyToOne
 	@JsonIgnore
@@ -155,6 +160,22 @@ public class Widget {
 
 	public Integer getSize() {
 		return size;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Integer getPoints() {
+		return points;
+	}
+
+	public void setPoints(Integer points) {
+		this.points = points;
 	}
 
 }
