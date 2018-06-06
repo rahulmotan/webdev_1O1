@@ -38,6 +38,7 @@ public class AssignmentService {
 		if (data.isPresent()) {
 			Topic topic = data.get();
 			agn.setTopic(topic);
+			agn.setWidgetType("assignment");
 			return assignmentRepository.save(agn);
 		}
 		return new Assignment();
