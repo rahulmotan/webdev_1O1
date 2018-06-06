@@ -3,10 +3,10 @@ package webdev.models;
 import javax.persistence.Entity;
 
 @Entity
-public class MultipleChoiceExamQuestion extends BaseExamQuestion{
+public class MultipleChoiceExamQuestion extends BaseExamQuestion {
 
 	private String options;
-	private int correctOption;
+	private Integer correctOption;
 
 	public String getOptions() {
 		return options;
@@ -16,11 +16,11 @@ public class MultipleChoiceExamQuestion extends BaseExamQuestion{
 		this.options = options;
 	}
 
-	public int getCorrectOption() {
+	public Integer getCorrectOption() {
 		return correctOption;
 	}
 
-	public void setCorrectOption(int correctOption) {
+	public void setCorrectOption(Integer correctOption) {
 		this.correctOption = correctOption;
 	}
 
