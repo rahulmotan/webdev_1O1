@@ -3,6 +3,7 @@ package webdev.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -49,6 +50,9 @@ public class AssignmentService {
 		Optional<Topic> data = topicRepository.findById(topicId);
 		if (data.isPresent()) {
 			Topic topic = data.get();
+			List<Widget> widgetList = topic.getWidgets();
+			Predicate<Widget> assignmentType = w-> w.getWidgetType() == "exam"; 
+			widgetList.removeIf(assignmentType);
 			return topic.getWidgets();
 		}
 		return new ArrayList<Widget>();
