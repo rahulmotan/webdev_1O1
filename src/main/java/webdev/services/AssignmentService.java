@@ -51,7 +51,7 @@ public class AssignmentService {
 		if (data.isPresent()) {
 			Topic topic = data.get();
 			List<Widget> widgetList = topic.getWidgets();
-			Predicate<Widget> assignmentType = w-> w.getWidgetType() == "exam"; 
+			Predicate<Widget> assignmentType = w -> w.getWidgetType().equals("exam");
 			widgetList.removeIf(assignmentType);
 			return topic.getWidgets();
 		}
