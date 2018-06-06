@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 public class Assignment extends Widget {
 
 	private String title;
-	private Integer points;
-	private String description;
 	private String essayAnswer;
 	private String filePath;
 	private String fileLink;
@@ -20,21 +18,6 @@ public class Assignment extends Widget {
 		this.title = title;
 	}
 
-	public Integer getPoints() {
-		return points;
-	}
-
-	public void setPoints(Integer points) {
-		this.points = points;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public String getEssayAnswer() {
 		return essayAnswer;
