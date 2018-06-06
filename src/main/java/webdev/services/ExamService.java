@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,11 +57,25 @@ public class ExamService {
 		return new Exam();
 	}
 
-	@DeleteMapping("/api/exam/{eid}")
+	@DeleteMapping("/api/exam/{eid}/delete")
 	public void deleteExam(@PathVariable("eid") int eid) {
 		Optional<Exam> data = examRepository.findById(eid);
 		if (data.isPresent()) {
 			examRepository.deleteById(eid);
+		}
+	}
+	
+	@PutMapping("/api/exam/{eid}/update")
+	public Exam updateExam(@PathVariable("eid") int eid, @RequestBody Exam e) {
+		Optional<Exam> data = examRepository.findById(eid);
+		if(data.isPresent()) {
+			Exam exam = data.get();
+			exam.setName(e.getName());
+			exam.setDescription(e.getDescription());
+			exam.setPoints(e.getPoints());
+			return examRepository.save(exam);
+		} else {
+			return new Exam();
 		}
 	}
 }
