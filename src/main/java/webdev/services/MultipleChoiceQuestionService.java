@@ -56,7 +56,7 @@ public class MultipleChoiceQuestionService {
 		return temp;
 	}
 
-	@DeleteMapping("/api/question/{qid}")
+	@DeleteMapping("/api/question/{qid}/mcq")
 	public void deleteQuestion(@PathVariable("qid") int qid) {
 		mcqRepository.deleteById(qid);
 	}
