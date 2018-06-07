@@ -69,6 +69,7 @@ public class FillInTheBlanksQuestionService {
 		if (data.isPresent()) {
 			FillInTheBlanksExamQuestion question = data.get();
 			question.setSubtitle(fib.getSubtitle());
+			question.setBlanks(fib.getBlanks());
 			question.setPoints(fib.getPoints());
 			question.setTitle(fib.getTitle());
 			question.setType(fib.getType());

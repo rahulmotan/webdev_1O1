@@ -71,6 +71,7 @@ public class TrueOrFalseQuestionService {
 			question.setPoints(tf.getPoints());
 			question.setTitle(tf.getTitle());
 			question.setType(tf.getType());
+			question.setCheckBoxValue(tf.getCheckBoxValue());
 			return tfRepository.save(question);
 		}
 		TrueOrFalseExamQuestion temp = new TrueOrFalseExamQuestion();
