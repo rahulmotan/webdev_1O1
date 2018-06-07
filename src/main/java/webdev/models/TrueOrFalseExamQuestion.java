@@ -4,14 +4,14 @@ import javax.persistence.Entity;
 
 @Entity
 public class TrueOrFalseExamQuestion extends BaseExamQuestion {
-	private boolean isTrue;
+	private boolean checkBoxValue;
 
-	public boolean isTrue() {
-		return isTrue;
+	public boolean getCheckBoxValue() {
+		return checkBoxValue;
 	}
 
-	public void setTrue(boolean isTrue) {
-		this.isTrue = isTrue;
+	public void setCheckBoxValue(boolean checkBoxValue) {
+		this.checkBoxValue = checkBoxValue;
 	}
 
 }
