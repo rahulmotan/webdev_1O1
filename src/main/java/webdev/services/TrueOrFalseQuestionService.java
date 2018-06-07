@@ -67,7 +67,6 @@ public class TrueOrFalseQuestionService {
 		Optional<TrueOrFalseExamQuestion> data = tfRepository.findById(qid);
 		if (data.isPresent()) {
 			TrueOrFalseExamQuestion question = data.get();
-			question.setExam(tf.getExam());
 			question.setSubtitle(tf.getSubtitle());
 			question.setPoints(tf.getPoints());
 			question.setTitle(tf.getTitle());

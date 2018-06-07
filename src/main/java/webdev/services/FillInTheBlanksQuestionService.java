@@ -68,7 +68,6 @@ public class FillInTheBlanksQuestionService {
 		Optional<FillInTheBlanksExamQuestion> data = fibRepository.findById(qid);
 		if (data.isPresent()) {
 			FillInTheBlanksExamQuestion question = data.get();
-			question.setExam(fib.getExam());
 			question.setSubtitle(fib.getSubtitle());
 			question.setPoints(fib.getPoints());
 			question.setTitle(fib.getTitle());

@@ -66,7 +66,6 @@ public class EssayQuestionService {
 		Optional<EssayExamQuestion> data = essRepository.findById(qid);
 		if (data.isPresent()) {
 			EssayExamQuestion question = data.get();
-			question.setExam(ess.getExam());
 			question.setSubtitle(ess.getSubtitle());
 			question.setPoints(ess.getPoints());
 			question.setTitle(ess.getTitle());

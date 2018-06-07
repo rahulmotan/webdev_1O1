@@ -67,7 +67,6 @@ public class MultipleChoiceQuestionService {
 		Optional<MultipleChoiceExamQuestion> data = mcqRepository.findById(qid);
 		if (data.isPresent()) {
 			MultipleChoiceExamQuestion question = data.get();
-			question.setExam(mcq.getExam());
 			question.setCorrectOption(mcq.getCorrectOption());
 			question.setOptions(mcq.getOptions());
 			question.setSubtitle(mcq.getSubtitle());
