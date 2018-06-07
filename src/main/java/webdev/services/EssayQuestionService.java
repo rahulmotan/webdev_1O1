@@ -61,7 +61,7 @@ public class EssayQuestionService {
 		essRepository.deleteById(qid);
 	}
 
-	@PutMapping("/api/question/{qid}")
+	@PutMapping("/api/question/{qid}/ess")
 	public EssayExamQuestion update(@PathVariable("qid") int qid, @RequestBody EssayExamQuestion ess) {
 		Optional<EssayExamQuestion> data = essRepository.findById(qid);
 		if (data.isPresent()) {

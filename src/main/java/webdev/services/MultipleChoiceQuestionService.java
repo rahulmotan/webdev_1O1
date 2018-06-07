@@ -61,7 +61,7 @@ public class MultipleChoiceQuestionService {
 		mcqRepository.deleteById(qid);
 	}
 
-	@PutMapping("/api/question/{qid}")
+	@PutMapping("/api/question/{qid}/mcq")
 	public MultipleChoiceExamQuestion update(@PathVariable("qid") int qid,
 			@RequestBody MultipleChoiceExamQuestion mcq) {
 		Optional<MultipleChoiceExamQuestion> data = mcqRepository.findById(qid);

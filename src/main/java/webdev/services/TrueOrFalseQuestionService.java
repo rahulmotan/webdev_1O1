@@ -62,7 +62,7 @@ public class TrueOrFalseQuestionService {
 		tfRepository.deleteById(qid);
 	}
 
-	@PutMapping("/api/question/{qid}")
+	@PutMapping("/api/question/{qid}/tf")
 	public TrueOrFalseExamQuestion update(@PathVariable("qid") int qid, @RequestBody TrueOrFalseExamQuestion tf) {
 		Optional<TrueOrFalseExamQuestion> data = tfRepository.findById(qid);
 		if (data.isPresent()) {

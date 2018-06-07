@@ -62,7 +62,7 @@ public class FillInTheBlanksQuestionService {
 		fibRepository.deleteById(qid);
 	}
 
-	@PutMapping("/api/question/{qid}")
+	@PutMapping("/api/question/{qid}/fib")
 	public FillInTheBlanksExamQuestion update(@PathVariable("qid") int qid,
 			@RequestBody FillInTheBlanksExamQuestion fib) {
 		Optional<FillInTheBlanksExamQuestion> data = fibRepository.findById(qid);
