@@ -69,6 +69,7 @@ public class AssignmentService {
 			dbAssignment.setPoints(agn.getPoints());
 			return assignmentRepository.save(dbAssignment);
 		}
+		return new Assignment();
 	}
 
 	@DeleteMapping("/api/assignment/{aid}")
