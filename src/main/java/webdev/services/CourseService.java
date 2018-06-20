@@ -1,5 +1,6 @@
 package webdev.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +45,19 @@ public class CourseService {
 			return data.get();
 		}
 		return null;
+	}
+
+	@PostMapping("api/courses")
+	public List<Course> findAllEnrolledCourses(@RequestBody Integer[] courseIds) {
+		List<Course> enrolledCourses = new ArrayList<>();
+		for (int i = 0; i < courseIds.length; i++) {
+			Optional<Course> data = courseRepository.findById(courseIds[i]);
+			if (data.isPresent()) {
+				Course ec = data.get();
+				enrolledCourses.add(ec);
+			}
+		}
+		return enrolledCourses;
 	}
 
 	@GetMapping("api/course/sorted")
